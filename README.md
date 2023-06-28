@@ -61,6 +61,16 @@ yarn -v
 
 现在，您的应用程序已经成功部署到 Vercel 上了！
 
+如果免魔法使用？
+
+注册一个域名，修改dns为vercel的dns值:76.76.21.21
+或者修改 nameservers为
+ns1.vercel-dns.com
+ns2.vercel-dns.com 
+然后在vercel 项目中添加您的域名即可拥有
+![cover](https://iili.io/HiHD6qN.png)
+
+
 ## 使用
 
 在工具的界面中，您可以输入您的 GPT-SK，并点击“查询”按钮来查询余额。工具将会显示您的余额信息。
@@ -73,6 +83,9 @@ yarn -v
 2. 在您的本地进行修改和改进。
 3. 提交您的修改到您 Fork 的仓库中。
 4. 创建一个 Pull Request，将您的修改提交给原始仓库。
+
+## 赞赏
+![cover](https://iili.io/H4UPcoQ.jpg)
 
 ## 📋 开源协议
 
