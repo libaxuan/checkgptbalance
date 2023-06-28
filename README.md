@@ -1,25 +1,67 @@
-# balanceCheckG
+# GPT -sk 查询工具
 
-## Project setup
-```
-yarn install
-```
+这是一个免费的Vue工具，用于查询GPT -sk的余额。它支持在Vercel上进行安装，并且是开源的。
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## 安装
 
-### Compiles and minifies for production
-```
-yarn build
-```
+要安装这个工具，您可以按照以下步骤进行操作：
 
-### Lints and fixes files
-```
-yarn lint
-```
+1. 在您的项目中创建一个新的目录，例如`gpt-tool`。
+2. 打开终端，并进入到新创建的目录中。
+3. 运行以下命令来克隆工具的GitHub仓库：
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# checkgptbalance
+   ```
+   git clone https://github.com/libaxuan/checkgptbalance.git
+   ```
+
+4. 进入克隆下来的仓库目录：
+
+   ```
+   cd checkgptbalance
+   ```
+
+5. 安装项目依赖：
+
+   ```
+   npm install
+   ```
+
+6. 运行项目：
+
+   ```
+   npm run serve
+   ```
+
+7. 打开浏览器，并访问`http://localhost:8080`，您将看到工具的界面。
+
+## 部署到Vercel
+
+要将这个工具部署到Vercel上，您可以按照以下步骤进行操作：
+
+1. 在您的GitHub账号下Fork这个仓库。
+2. 在Vercel上创建一个新的项目。
+3. 在Vercel的项目设置中，将仓库链接到您Fork的仓库。
+4. 配置Vercel的构建和部署设置，以确保正确构建和发布您的应用程序。
+5. 点击部署按钮，Vercel将自动构建和部署您的应用程序。
+6. 等待部署完成，并获取部署后的应用程序链接。
+
+现在，您的应用程序已经成功部署到Vercel上了！
+
+## 使用
+
+在工具的界面中，您可以输入您的GPT -sk，并点击“查询”按钮来查询余额。工具将会显示您的余额信息。
+
+## 贡献
+
+如果您对这个工具感兴趣，并且希望进行贡献，您可以按照以下步骤进行操作：
+
+1. 在GitHub上Fork这个仓库。
+2. 在您的本地进行修改和改进。
+3. 提交您的修改到您Fork的仓库中。
+4. 创建一个Pull Request，将您的修改提交给原始仓库。
+
+## 许可证
+
+这个工具是基于MIT许可证进行开源的。您可以在仓库中找到更多关于许可证的信息。
+
+希望这个md文件能够帮到您！如果您有任何其他问题，请随时向我提问。
