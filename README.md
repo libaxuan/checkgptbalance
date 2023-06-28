@@ -76,4 +76,4 @@ yarn -v
 
 ## 📋 开源协议
 
-[![License MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/libaxuan/checkgptbalance/master/license)
+[![License MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/libaxuan/checkgptbalance/blob/main/LICENSE)
