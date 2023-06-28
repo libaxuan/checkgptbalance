@@ -1,0 +1,108 @@
+body {
+    background-color: rgba(125, 201, 44, 0.95);
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: center;
+    color: #000000;
+    border: 1px solid black;
+}
+
+th:first-child,
+td:first-child {
+    width: 520px;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 添加垂直排列 */
+}
+
+footer a {
+    display: block;
+}
+
+
+textarea#api-key-input {
+    width: 690px;
+    font-size: 19px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: none;
+    resize: vertical;
+    rows: 8;
+}
+
+select#api-url-select,
+input#custom-url-input {
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+    background-color: #ff8c00;
+    border-radius: 5px;
+    color: #ffffff;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+input#custom-url-input {
+    display: none;
+}
+
+button {
+    height: 50px;
+    font-size: 16px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+#search-btn {
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+}
+
+.status-ok {
+    color: #2d8d2d;
+}
+
+.status-error {
+    color: #7e1707;
+}
+
+tr:nth-child(even) {
+    /* 将偶数行背景色改为深蓝色 */
+    background-color: #f1d39c;
+}
+
+tr:nth-child(odd) {
+    /* 将偶数行背景色改为深蓝色 */
+    background-color: #f1d39c;
+}
