@@ -332,7 +332,6 @@ export default {
     },
   },
 
-
   mounted() {
     let apiUrlSelect = document.getElementById("api-url-select");
     apiUrlSelect.addEventListener("change", this.handleApiUrlChange);
