@@ -1,19 +1,22 @@
 <template>
   <div>
-    <h1>GPT-SK信息查询</h1>
+    <h1><a href="https://iili.io/H4UPcoQ.jpg">OpenAI-SK信息查询</a></h1>
     <form>
       <textarea id="api-key-input" placeholder="请输入API KEY，每行一个"></textarea>
     </form>
     <div style="text-align: center;">
-      <select id="api-url-select">
+      <select id="api-url-select" v-model="selectedApiUrl" @change="handleApiUrlChange">
         <option value="https://openai.1rmb.tk">【社区proxy】 https://openai.1rmb.tk</option>
-        <option value="https://openai.1rmb.tk">【CloudFlare】 https://api.askgptai.tech</option>
+        <option value="https://api.askgptai.tech">【CloudFlare】 https://api.askgptai.tech</option>
         <option value="https://api.openai.com">【官方Magic】 https://api.openai.com</option>
         <option value="custom">自定义 ...</option>
       </select>
+      <input type="text" id="custom-url-input" v-model="customApiUrl" placeholder="自定义URL"/>
       <button type="button" id="search-btn" @click="sendRequest()">查询</button>
       <button @click="sortTable('result-table', 3, 'desc')">剩余额度从大到小</button>
       <button @click="sortTable('result-table', 3, 'asc')">剩余额度从小到大</button>
+      <button @click="exportTableData">导出所有数据</button>
+      <button @click="exportValidData">导出有效数据</button>
     </div>
     <table id="result-table">
       <thead>
@@ -30,20 +33,35 @@
       <tbody></tbody>
     </table>
     <footer>
-      <footer>
-        <a href="https://autoaigpt.cn">👉GO HOME👈</a>
-        <br>
-        <a href="https://sensechat.vip">🍀体验免费万能助手🍀</a>
-        <br>
-        <a href="https://itools.site">🍀免费万能工具🍀</a>
-      </footer>
+      <a href="https://sensechat.vip" style="display: inline-block;">🍀免费AI问答🍀</a>
+      <a href="https://autoaigpt.cn" style="display: inline-block;">👉GO HOME👈</a>
+      <a href="https://itools.site" style="display: inline-block;">🍀免费万能工具🍀</a>
     </footer>
+
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      selectedApiUrl: "https://openai.1rmb.tk", // 默认选择的API URL
+      customApiUrl: "", // 自定义的API URL
+      isEncrypted: false
+    };
+  },
   methods: {
+    handleApiUrlChange() {
+      let apiUrlSelect = document.getElementById("api-url-select");
+      let customUrlInput = document.getElementById("custom-url-input");
+
+      if (apiUrlSelect.value === "custom") {
+        customUrlInput.style.display = "inline-block";
+        customUrlInput.style.marginTop = "5px";
+      } else {
+        customUrlInput.style.display = "none";
+      }
+    },
     sendRequest() {
       let queriedApiKeys = [];
 
@@ -104,6 +122,7 @@ export default {
 
         return `${year}-${month}-${day}`;
       }
+
       // send request logic
       let apiKeyInput = document.getElementById("api-key-input");
       let apiUrlSelect = document.getElementById("api-url-select");
@@ -120,10 +139,10 @@ export default {
           alert("请设置API链接");
           return;
         } else {
-          apiUrl = customUrlInput.value.trim();
+          apiUrl = this.customApiUrl; // 使用自定义的API URL
         }
       } else {
-        apiUrl = apiUrlSelect.value;
+        apiUrl = this.selectedApiUrl; // 使用选择的API URL
       }
       let apiKeys = apiKeyInput.value.trim().split("\n");
 
@@ -183,7 +202,7 @@ export default {
           errorMessageCell.style.width = "90px";
           errorMessageCell.classList.add("status-error");
           errorMessageCell.textContent =
-              "不正确或已失效的API-KEY";
+              "API-KEY不正确或已失效";
           row.appendChild(errorMessageCell);
           tableBody.appendChild(row);
           if (i === apiKeys.length - 1) {
@@ -192,15 +211,110 @@ export default {
         });
       }
     },
+    exportTableData() {
+      let table = document.getElementById("result-table");
+      let rows = table.getElementsByTagName("tr");
+      let csvContent = "data:text/csv;charset=utf-8,";
+
+      // 添加表头
+      csvContent += "API KEY,总额度,已使用,剩余额度,截止日期,最高模型,是否绑卡\r\n";
+
+      for (let i = 0; i < rows.length; i++) {
+        let rowData = [];
+        let cells = rows[i].getElementsByTagName("td");
+
+        for (let j = 0; j < cells.length; j++) {
+          rowData.push(cells[j].textContent);
+        }
+
+        let row = rowData.join(",");
+        csvContent += row + "\r\n";
+      }
+
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "table_data.csv");
+      document.body.appendChild(link);
+      link.click();
+    },
+    // 导出有效key
+    exportValidData() {
+      let table = document.getElementById("result-table");
+      let rows = table.getElementsByTagName("tr");
+      let validRows = [];
+      let csvContent = "data:text/csv;charset=utf-8,";
+
+      // 添加表头
+      csvContent += "API KEY,总额度,已使用,剩余额度,截止日期,最高模型,是否绑卡\r\n";
+
+      let hasValidData = false; // 标记是否存在有效数据
+
+      for (let i = 0; i < rows.length; i++) {
+        let rowData = [];
+        let cells = rows[i].getElementsByTagName("td");
+
+        // 检查 cells 数组是否为空
+        if (cells.length > 0) {
+          let isInvalid = cells[1].textContent.includes("API-KEY不正确或已失效");
+          let isRequestFailed = cells[1].textContent.includes("API请求失败，请检查其有效性或网络情况");
+          let isValid = !isInvalid && !isRequestFailed;
+
+          if (isValid) {
+            hasValidData = true;
+            for (let j = 0; j < cells.length; j++) {
+              rowData.push(cells[j].textContent);
+            }
+
+            validRows.push(rowData.join(","));
+          }
+        }
+      }
+
+      if (hasValidData) {
+        csvContent += validRows.join("\r\n");
+
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "valid_data.csv");
+        document.body.appendChild(link);
+        link.click();
+      } else {
+        alert("暂无有效数据导出");
+      }
+    }
+    ,
     sortTable(tableId, column, order) {
       let table = document.getElementById(tableId);
       let tbody = table.getElementsByTagName('tbody')[0];
       let rows = tbody.getElementsByTagName('tr');
       let rowArray = Array.from(rows);
 
+      // 获取每行的API-KEY和状态
+      let getKeyAndStatus = (row) => {
+        let key = row.getElementsByTagName('td')[0]?.textContent;
+        let status = row.getElementsByTagName('td')[1]?.textContent;
+        return {key, status};
+      };
+
+      // 将API-KEY不正确或已失效移到数组末尾
       rowArray.sort(function (a, b) {
-        let aValue = a.getElementsByTagName('td')[column].textContent;
-        let bValue = b.getElementsByTagName('td')[column].textContent;
+        let aData = getKeyAndStatus(a);
+        let bData = getKeyAndStatus(b);
+
+        if (aData.status === "API-KEY不正确或已失效") {
+          return 1;
+        } else if (bData.status === "API-KEY不正确或已失效") {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+
+      rowArray.sort(function (a, b) {
+        let aValue = a.getElementsByTagName('td')[column]?.textContent || '';
+        let bValue = b.getElementsByTagName('td')[column]?.textContent || '';
         if (column === 3) {
           aValue = parseFloat(aValue);
           bValue = parseFloat(bValue);
@@ -215,22 +329,15 @@ export default {
       for (let i = 0; i < rowArray.length; i++) {
         tbody.appendChild(rowArray[i]);
       }
-    }
+    },
   },
+
 
   mounted() {
     let apiUrlSelect = document.getElementById("api-url-select");
-    let customUrlInput = document.getElementById("custom-url-input");
-    apiUrlSelect.addEventListener("change", function () {
-      if (apiUrlSelect.value === "custom") {
-        customUrlInput.style.display = "inline-block";
-        customUrlInput.style.marginTop = "5px";
-      } else {
-        customUrlInput.style.display = "none";
-      }
-    });
-    },
+    apiUrlSelect.addEventListener("change", this.handleApiUrlChange);
 
+  },
 };
 </script>
 

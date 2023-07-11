@@ -35,16 +35,22 @@ form {
 footer {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* 添加垂直排列 */
+    text-align: center;
+    flex-wrap: nowrap; /* 禁止换行 */
+    overflow: hidden; /* 隐藏溢出内容 */
 }
 
 footer a {
-    display: block;
+    white-space: nowrap; /* 禁止链接换行 */
+    margin: 0 10px; /* 可根据需要调整链接之间的间距 */
+    display: inline-block;
 }
+
 
 
 textarea#api-key-input {
@@ -84,6 +90,7 @@ button {
     border: 1px solid black;
 }
 #search-btn {
+    text-align: left;
     background-color: red;
     color: white;
     border: 1px solid black;
