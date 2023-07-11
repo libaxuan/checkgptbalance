@@ -36,6 +36,7 @@
       <a href="https://sensechat.vip" style="display: inline-block;">🍀免费AI问答🍀</a>
       <a href="https://autoaigpt.cn" style="display: inline-block;">👉GO HOME👈</a>
       <a href="https://itools.site" style="display: inline-block;">🍀免费万能工具🍀</a>
+      <a href="https://github.com/libaxuan/checkgptbalance" style="display: inline-block;">🍀项目地址🍀</a>
     </footer>
 
   </div>
